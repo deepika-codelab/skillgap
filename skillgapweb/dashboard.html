@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Skill Gap Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .card {
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container-fluid">
+        <span class="navbar-brand">Skill Gap Analysis Dashboard</span>
+        <a href="index.html" class="btn btn-outline-light btn-sm">Analyze Skills</a>
+    </div>
+</nav>
+
+<!-- Dashboard Content -->
+<div class="container mt-4">
+
+    <div class="row">
+        <!-- Required Skills -->
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Required Skills</h5>
+                    <ul id="requiredSkills" class="list-group">
+                        <!-- JS inserts -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Skills -->
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-success">Your Skills</h5>
+                    <ul id="userSkills" class="list-group">
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Missing Skills -->
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title text-danger">Skill Gaps</h5>
+                    <ul id="missingSkills" class="list-group">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress -->
+    <div class="card shadow mt-4">
+        <div class="card-body">
+            <h5 class="mb-3">Skill Match Progress</h5>
+            <div class="progress">
+                <div id="progressBar" class="progress-bar bg-success" style="width: 0%">0%</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- JS -->
+<script>
+    // Dummy data (later backend connect pannalam)
+    const required = ["HTML", "CSS", "JavaScript", "MySQL", "Bootstrap"];
+    const user = ["HTML", "CSS"];
+    const missing = required.filter(skill => !user.includes(skill));
+
+    function loadSkills(id, skills) {
+        const ul = document.getElementById(id);
+        skills.forEach(skill => {
+            const li = document.createElement("li");
+            li.className = "list-group-item";
+            li.innerText = skill;
+            ul.appendChild(li);
+        });
+    }
+
+    loadSkills("requiredSkills", required);
+    loadSkills("userSkills", user);
+    loadSkills("missingSkills", missing);
+
+    // Progress Calculation
+    const percentage = Math.round((user.length / required.length) * 100);
+    const bar = document.getElementById("progressBar");
+    bar.style.width = percentage + "%";
+    bar.innerText = percentage + "%";
+</script>
+
+</body>
+</html>
